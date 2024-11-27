@@ -1,0 +1,76 @@
+html, body {
+  margin: 0;
+}
+body {
+  background-color: #f1f1f1;
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper {
+  height: 100vh; /* 100% da altura do navegador */
+  width: 100%; /* Largura completa */
+  display: flex;
+  margin: 0 auto;
+  background-color: aquamarine;
+}
+.main {
+  display: flex;
+  flex-flow: column;
+  width: 85%;
+}
+.menu {
+  width: 100%;
+  background-color: rgb(240, 208, 138);
+  padding: 10px 20px 0px;
+  color: #000000;
+}
+
+.menu-abrir {
+  width: 30px; /* Largura do ícone */
+  height: 30px; /* Altura do ícone */
+  object-fit: contain; /* Mantém as proporções da imagem */
+  cursor: pointer; /* Mostra o cursor como "mãozinha" ao passar por cima */
+}
+
+@media (max-width: 768px) {
+  .menu-icon {
+    width: 20px; /* Reduz o tamanho para telas menores */
+    height: 20px;
+  }
+}
+
+.header {
+  background-color: rgb(223, 189, 115);
+  min-height: 150px;
+}
+.content {
+  background-color: white;
+  min-height: 300px;
+  padding: 20px;
+}
+.footer {
+  color: white;
+  background-color: rgb(108, 108, 119);
+  min-height: 150px;
+}
+/*Link*/
+a {
+  color: gray;
+  text-decoration: none;
+  padding: 10px 5px;
+}
+a:hover{
+  background-color: white;
+}
+
+input[ type="checkbox"]{
+  display: none;
+}
+input[ type="checkbox"]:checked~nav{
+  transform: translate(350px);
+}
+input[type="checkbox"]:checked + .menu-icon {
+  transform: rotate(90deg); /* Rotaciona o ícone ao clicar */
+  transition: transform 0.3s ease; /* Transição suave */
+}
