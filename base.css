@@ -1,76 +1,208 @@
-html, body {
+html,body {
   margin: 0;
-}
-body {
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
   background-color: #f1f1f1;
+}
+
+body {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
 }
 
+/* Wrapper para centralizar o conteúdo */
 .wrapper {
-  height: 100vh; /* 100% da altura do navegador */
-  width: 100%; /* Largura completa */
-  display: flex;
-  margin: 0 auto;
-  background-color: aquamarine;
-}
-.main {
-  display: flex;
-  flex-flow: column;
-  width: 85%;
-}
-.menu {
   width: 100%;
+  max-width: 1200px;
+  display: flex;
+  background-color: white;
+}
+
+/* Div principal */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  width: 100%;
+
+}
+
+.menu.collapsed ~ .main {
+  margin-left: 60px; /* Ajusta o conteúdo ao menu recolhido */
+}
+
+/* Imagem responsiva no topo */
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.header img {
+  width: 100%; /* A imagem ocupa 100% da largura da tela */
+  height: auto; /* Mantém a proporção da imagem */
+  object-fit: cover; /* Ajusta a imagem para preencher o espaço sem distorcer */
+}
+
+/* Menu */
+.menu {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 123vh; /* Preenche toda a altura da página */
+  width: 220px; /* Largura inicial */
   background-color: rgb(240, 208, 138);
   padding: 10px 20px 0px;
-  color: #000000;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: width 0.3s ease; /* Transição suave na largura */
 }
 
-.menu-abrir {
-  width: 30px; /* Largura do ícone */
-  height: 30px; /* Altura do ícone */
-  object-fit: contain; /* Mantém as proporções da imagem */
-  cursor: pointer; /* Mostra o cursor como "mãozinha" ao passar por cima */
+.menu label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
 }
 
-@media (max-width: 768px) {
-  .menu-icon {
-    width: 20px; /* Reduz o tamanho para telas menores */
-    height: 20px;
-  }
+.menu-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  transition: transform 0.3s ease;
 }
 
-.header {
-  background-color: rgb(223, 189, 115);
-  min-height: 150px;
+.menu.collapsed {
+  width: 60px; /* Largura reduzida quando recolhido */
 }
+
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"]:checked ~ .menu {
+  width: 60px;
+}
+
+input[type="checkbox"]:checked + label .menu-icon {
+  transform: rotate(90deg);
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  padding: 10px 0;
+  text-align: left;
+  overflow: hidden; /* Esconde o texto quando o menu estiver recolhido */
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+nav ul li a {
+  color: #000;
+  text-decoration: none;
+  transition: background-color 0.3s, opacity 0.3s;
+}
+
+nav ul li a:hover {
+  background-color: #fff;
+}
+
+input[type="checkbox"]:checked ~ .menu nav ul li a {
+  color: transparent;
+}
+
+input[type="checkbox"]:checked ~ .menu nav ul li a::after {
+  content: "•••";
+  color: #000;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+input[type="checkbox"]:checked + label .menu-icon {
+  transform: rotate(90deg);
+}
+
+/* Conteúdo */
 .content {
   background-color: white;
-  min-height: 300px;
+  border-radius: 5px;
   padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .footer {
   color: white;
   background-color: rgb(108, 108, 119);
-  min-height: 150px;
-}
-/*Link*/
-a {
-  color: gray;
-  text-decoration: none;
-  padding: 10px 5px;
-}
-a:hover{
-  background-color: white;
+  text-align: center;
+  padding: 20px;
 }
 
-input[ type="checkbox"]{
-  display: none;
+.footer a:hover {
+  color: gray;
+  text-decoration: none;
+  margin: 0 10px;
 }
-input[ type="checkbox"]:checked~nav{
-  transform: translate(350px);
+
+.footer img {
+  vertical-align: middle;
 }
-input[type="checkbox"]:checked + .menu-icon {
-  transform: rotate(90deg); /* Rotaciona o ícone ao clicar */
-  transition: transform 0.3s ease; /* Transição suave */
+
+/* Media Queries para diferentes tamanhos de tela */
+@media (max-width: 768px) {
+  .menu {
+    position: fixed;
+    z-index: 1000;
+    height: 100%;
+  }
+
+  .main {
+    margin-left: 0;
+  }
+
+  .menu.collapsed {
+    width: 50px;
+  }
+
+  .menu.collapsed ~ .main {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu {
+    padding: 5px;
+  }
+
+  .menu label {
+    text-align: center;
+  }
+
+  nav ul {
+    padding: 0;
+  }
+
+  .header img {
+    height: 60vh; /* Ajusta a altura em telas menores */
+  }
 }
